@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\BookStoreRequest;
+use App\Http\Requests\BookUpdateRequest;
 use App\Models\Book;
 use Illuminate\Http\Request;
 
@@ -43,7 +43,8 @@ $book = Book::query()->create(
 
 
 
-public function update (BookStoreRequest $request,int $id){
+
+public function update (BookUpdateRequest $request,int $id){
     $book = Book::query()->where('id',$id)->update(
         $request->validated()
     );

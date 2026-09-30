@@ -23,10 +23,10 @@ class ProductStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name"=>['required','string','max:255'],
+            "name"=>['required','string','min:3'],
             "price"=>['required','numeric','min:0'],
             "quantity"=>['required','integer','min:0'],
-            "description"=>['nullable','string'],
+            "description"=>['nullable','string','min:5'],
         ];
     }
 }

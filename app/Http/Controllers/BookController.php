@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BookStoreRequest;
 use App\Http\Requests\BookUpdateRequest;
 use App\Models\Book;
 use Illuminate\Http\Request;

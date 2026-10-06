@@ -9,41 +9,71 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index(){
+    public function index()
+    {
 
- return Product::query()->get();}
-
-
-
-public function store(ProductStoreRequest $request){
-
-Product::query()->create($request->validated());
-
-
-}
+        $products =    Product::query()->get();
+        return response()->json([
+            "message" => "all products in database ",
+            "products" => $products
+        ]);
+    }
 
 
-public function show(int $id){
-     return Product::query()->where('id', $id)->get();}
 
 
-public function update (ProductUpdateRequest $request, int $id){
-
-      Product::query()->where('id', $id)->update($request->validated());
 
 
-}
+    public function store(ProductStoreRequest $request)
+    {
 
-public function destroy(int $id){
-
-      Product::query()->where('id', $id)->delete();
-}
-
-public function updatestock(Request $request, int $id ){
-
-Product::query()->where('id', $id)->decrement('quantity', $request->input('quantity'));
+        $product = Product::query()->create($request->validated());
+        return response()->json([
+            "message" => " the product was created successfully ",
+            "product" => $product
+        ]);
+    }
 
 
-}
+    public function show(int $id)
+    {
+        $product = Product::query()->where('id', $id)->get();
+        return response()->json([
+            "message" => " the product with id $id is ",
+            "product" => $product
+        ]);
+    }
 
+
+    public function update(ProductUpdateRequest $request, int $id)
+    {
+
+        $product = Product::query()->where('id', $id)->update($request->validated());
+
+        return response()->json([
+            "message" => " the product was updated successfully ",
+            "product" => $product
+        ]);
+    }
+
+    public function destroy(int $id)
+    {
+
+        $product = Product::query()->where('id', $id)->delete();
+        return response()->json([
+            "message" => " the product was deleted successfully ",
+            "product" => $product
+        ]);
+    }
+
+    public function updatestock(Request $request, int $id)
+    {
+
+         $product=Product::query()->where('id', $id)->decrement('quantity', $request->input('quantity'));
+
+         return response()->json([
+            "message" => " the product stock was updated successfully ",
+            "product" => $product
+        ]);
+    }
 }
